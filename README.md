@@ -6,7 +6,7 @@
 <br />
 </div>
 
-✨ Features
+#✨ Features
 👤 User Account Management: Create accounts, sign in, and sign out with ease.
 
 🔒 Secure Authentication & Authorization:
