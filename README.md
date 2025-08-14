@@ -9,7 +9,7 @@
 ### Features
 👤 User Account Management: Create accounts, sign in, and sign out with ease.
 
-🔒 Secure Authentication & Authorization:
+##🔒 Secure Authentication & Authorization:
 
 Passwords are securely hashed using bcrypt.
 
