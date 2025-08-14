@@ -1,67 +1,56 @@
-<div align="center">
-<br />
-<img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="25px">
-<h1>MyCLOUD – Storage as a Service ☁️</h1>
-<p>A secure and robust cloud storage web application built with Node.js, Express.js, and MongoDB. Upload, manage, and access your files from anywhere with a clean, intuitive interface.</p>
-<br />
-</div>
+\<div align="center"\>
+\<br /\>
+\<img src="[https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif](https://www.google.com/search?q=https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif)" width="25px"\>
+\<h1\>MyCLOUD – Storage as a Service ☁️\</h1\>
+\<p\>A secure and robust cloud storage web application built with Node.js, Express.js, and MongoDB. Upload, manage, and access your files from anywhere with a clean, intuitive interface.\</p\>
+\<br /\>
+\</div\>
 
-### Features
-👤 User Account Management: Create accounts, sign in, and sign out with ease.
+## ✨ Features
 
-##🔒 Secure Authentication & Authorization:
+1.  **👤 User Account Management**: Create accounts, sign in, and sign out with ease.
+2.  **🔒 Secure Authentication & Authorization**:
+      * Passwords are securely hashed using **bcrypt**.
+      * **JWT tokens** stored in cookies for persistent sessions.
+      * Custom middleware ensures only authenticated users can access their data.
+3.  **☁️ File Uploads via Cloudinary**:
+      * Seamlessly upload files with a **drag-and-drop** interface or a traditional browse button.
+      * File metadata is stored in MongoDB and linked to user accounts for privacy.
+4.  **🎨 Frontend with EJS and Tailwind CSS**:
+      * A clean, modern, and responsive UI built with **Tailwind CSS**.
+      * User-friendly pop-up notifications for errors and success messages.
+5.  **⚙️ Robust Error Handling**:
+      * All routes are wrapped in `try-catch` blocks for graceful error handling.
+      * Custom middleware for validating requests and handling errors ensures a smooth user experience.
 
-Passwords are securely hashed using bcrypt.
+-----
 
-JWT tokens stored in cookies for persistent sessions.
+## 🛠️ Tech Stack
 
-Custom middleware ensures only authenticated users can access their data.
+  * **Backend**: Node.js, Express.js
+  * **Frontend**: EJS Templates, Tailwind CSS
+  * **Database**: MongoDB (with Mongoose ODM)
+  * **Cloud Storage**: Cloudinary
+  * **Authentication**: JWT (JSON Web Tokens), bcrypt
+  * **File Handling**: Multer
 
-☁️ File Uploads via Cloudinary:
+-----
 
-Seamlessly upload files with a drag-and-drop interface or a traditional browse button.
+## 🚀 How It Works
 
-File metadata is stored in MongoDB and linked to user accounts for privacy.
+1.  **User Registration**: A new user signs up. Their password is automatically hashed with `bcrypt` and stored securely in the MongoDB `Users` collection.
+2.  **User Login**: The user logs in with their credentials. A JWT token is generated and stored as a cookie in their browser to maintain the session.
+3.  **File Upload**: The authenticated user uploads a file. `Multer` handles the file stream, which is then sent to `Cloudinary` for storage. The file's metadata (URL, name, type) is saved in the MongoDB `Files` collection, linked by the user's ID.
+4.  **Data Access**: The `authMiddleware` verifies the JWT token on every request to a protected route, ensuring that users can only access their own files.
+5.  **Error Handling**: If an error occurs, the middleware catches it and sends a user-friendly pop-up notification to the frontend instead of a raw JSON response.
 
-🎨 Frontend with EJS and Tailwind CSS:
+-----
 
-A clean, modern, and responsive UI built with Tailwind CSS.
+## 📁 Folder Structure
 
-User-friendly pop-up notifications for errors and success messages.
-
-⚙️ Robust Error Handling:
-
-All routes are wrapped in try-catch blocks for graceful error handling.
-
-Custom middleware for validating requests and handling errors ensures a smooth user experience.
-
-🛠️ Tech Stack
-Backend: Node.js, Express.js
-
-Frontend: EJS Templates, Tailwind CSS
-
-Database: MongoDB (with Mongoose ODM)
-
-Cloud Storage: Cloudinary
-
-Authentication: JWT (JSON Web Tokens), bcrypt
-
-File Handling: Multer
-
-🚀 How It Works
-User Registration: A new user signs up. Their password is automatically hashed with bcrypt and stored securely in the MongoDB Users collection.
-
-User Login: The user logs in with their credentials. A JWT token is generated and stored as a cookie in their browser to maintain the session.
-
-File Upload: The authenticated user uploads a file. Multer handles the file stream, which is then sent to Cloudinary for storage. The file's metadata (URL, name, type) is saved in the MongoDB Files collection, linked by the user's ID.
-
-Data Access: The authMiddleware verifies the JWT token on every request to a protected route, ensuring that users can only access their own files.
-
-Error Handling: If an error occurs, the middleware catches it and sends a user-friendly pop-up notification to the frontend instead of a raw JSON response.
-
-📁 Folder Structure
 Here's a look at the project's structure:
 
+```
 MyCLOUD/
 ├── public/          # Static assets (CSS, client-side JS, images)
 ├── views/           # EJS templates for the UI
@@ -72,31 +61,35 @@ MyCLOUD/
 ├── package.json     # Project dependencies
 ├── .env             # Environment variables (not committed to Git)
 └── README.md
-🌟 Project Highlights
-Drag-and-Drop Uploads: A modern and seamless user experience for uploading files.
+```
 
-Middleware-Driven Architecture: Clean, organized, and maintainable code.
+-----
 
-User-Friendly Feedback: Pop-up based error handling for better UI communication.
+## 🌟 Project Highlights
 
-Complete Session Management: Secure and persistent sessions using JWT stored in cookies.
+1.  **Drag-and-Drop Uploads**: A modern and seamless user experience for uploading files.
+2.  **Middleware-Driven Architecture**: Clean, organized, and maintainable code.
+3.  **User-Friendly Feedback**: Pop-up based error handling for better UI communication.
+4.  **Complete Session Management**: Secure and persistent sessions using JWT stored in cookies.
+5.  **Modular and Scalable**: A fully modular route structure that is easy to extend.
 
-Modular and Scalable: A fully modular route structure that is easy to extend.
+-----
 
-🔮 Future Improvements
+## 🔮 Future Improvements
+
 Here are some features planned for the future:
 
-[ ] File Sharing: Implement file sharing with other users using role-based access (view/edit).
+  - [ ] **File Sharing**: Implement file sharing with other users using role-based access (view/edit).
+  - [ ] **Email & Password**: Add email verification and a "Forgot Password" feature.
+  - [ ] **User Dashboard**: Create a dashboard with storage usage analytics.
+  - [ ] **Large File Support**: Implement file chunking to support larger file uploads.
 
-[ ] Email & Password: Add email verification and a "Forgot Password" feature.
+-----
 
-[ ] User Dashboard: Create a dashboard with storage usage analytics.
+## 📄 License
 
-[ ] Large File Support: Implement file chunking to support larger file uploads.
+This project is licensed under the **MIT License**. See the `LICENSE` file for more details.
 
-📄 License
-This project is licensed under the MIT License. See the LICENSE file for more details.
-
-<div align="center">
-<p>Made with ❤️ by [Your Name]</p>
-</div>
+\<div align="center"\>
+\<p\>Made with ❤️ by [Your Name]\</p\>
+\</div\>
