@@ -1,10 +1,13 @@
-\<div align="center"\>
-\<br /\>
-\<img src="[https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif](https://www.google.com/search?q=https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif)" width="25px"\>
-\<h1\>MyCLOUD – Storage as a Service ☁️\</h1\>
-\<p\>A secure and robust cloud storage web application built with Node.js, Express.js, and MongoDB. Upload, manage, and access your files from anywhere with a clean, intuitive interface.\</p\>
-\<br /\>
-\</div\>
+<div align="center">
+  <br />
+  <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="25px" alt="wave icon" />
+  <h1>MyCLOUD – Storage as a Service ☁️</h1>
+  <p>
+    A secure and robust cloud storage web application built with Node.js, Express.js, and MongoDB.<br>
+    Upload, manage, and access your files from anywhere with a clean, intuitive interface.
+  </p>
+  <br />
+</div>
 
 ## ✨ Features
 
