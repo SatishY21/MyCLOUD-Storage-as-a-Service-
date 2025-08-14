@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="w-full bg-gray-800 text-white px-6 py-4 flex justify-between items-center fixed top-0 left-0 z-50">
+        <div class="text-xl font-bold">MyCLOUD</div>
+        <% if (user) { %>
+            <form action="/user/logout" method="POST">
+                <button type="submit" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded transition ">
+                    Logout
+                </button>
+            </form>
+            <% } %>
+    </nav>
+
+
+
+    <!-- Fixed upload bar -->
+    
+        <div class="fixed top-16 left-2 w-full bg-gray-900 z-40 px-4 py-6 flex justify-start">
+            <button id="openModalBtn" class="bg-cyan-700 hover:bg-cyan-900 px-6 py-3 rounded-lg font-medium transition">
+                Upload Files
+            </button>
+        </div>
+    
+
+
+
+    <!-- File list BELOW upload bar -->
+    <div class="pt-40 px-6 flex flex-col gap-6 w-full">
+        <% files.forEach((file)=> { %>
+            <div class="p-4 rounded-md bg-cyan-700 flex items-center justify-between w-full">
+                <!-- File name on the left -->
+                <span class="text-white text-lg font-medium truncate">
+                    <%= file.originalname %>
+                </span>
+
+                <!-- Buttons on the right -->
+                <div class="flex gap-4 flex-shrink-0">
+                    <a href="<%= file.url || file.path %>" target="_blank"
+                        class="bg-green-500 px-4 py-2 rounded-md hover:bg-green-600 transition text-white">
+                        View
+                    </a>
+                    <a href="/download/<%= file._id %>"
+                        class="bg-yellow-500 px-4 py-2 rounded-md hover:bg-yellow-600 transition text-white">
+                        Download
+                    </a>
+
+
+
+                </div>
+            </div>
+            <% }) %>
+    </div>
+
+
+    <!-- Modal Background -->
+    <div id="uploadModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
+        <!-- Modal Content -->
+        <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+            <div class="bg-gray-800 rounded-xl shadow-lg p-6 w-full max-w-md relative border border-gray-700">
+
+                <!-- Close Button -->
+                <button id="closeModalBtn" type="button"
+                    class="absolute top-3 right-3 text-gray-400 hover:text-white text-xl">
+                    &times;
+                </button>
+
+                <!-- Modal Title -->
+                <h2 class="text-2xl font-bold mb-4 text-center">Upload Files</h2>
+
+                <!-- Drag & Drop Area -->
+                <label for="fileInput"
+                    class="flex flex-col items-center justify-center border-2 border-dashed border-gray-600 rounded-lg p-6 cursor-pointer hover:border-blue-500 transition">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 mb-3 text-gray-400" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 12V4m0 0l-3 3m3-3l3 3" />
+                    </svg>
+
+                    <p class="text-gray-300">Drag & drop files here or <span class="text-blue-500">browse</span></p>
+                    <input id="fileInput" type="file" multiple class="hidden" name="file" />
+                </label>
+
+                <p class="text-xs text-gray-400 mt-3 text-center">
+                    Supported formats: .jpg, .png, .pdf, .docx
+                </p>
+
+                <!-- Upload Button Inside Modal -->
+                <button type="submit"
+                    class="mt-5 w-full bg-blue-600 hover:bg-blue-700 py-2.5 rounded-lg font-medium transition">
+                    Upload Files
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+
+
+    <script>
+        const openModalBtn = document.getElementById("openModalBtn");
+        const closeModalBtn = document.getElementById("closeModalBtn");
+        const uploadModal = document.getElementById("uploadModal");
+
+        openModalBtn.addEventListener("click", () => {
+            uploadModal.classList.remove("hidden");
+        });
+
+        closeModalBtn.addEventListener("click", () => {
+            uploadModal.classList.add("hidden");
+        });
+
+        // Close modal if clicking outside
+        uploadModal.addEventListener("click", (e) => {
+            if (e.target === uploadModal) {
+                uploadModal.classList.add("hidden");
+            }
+        });
+
+        const uploadForm = document.getElementById('uploadForm');
+        const fileInput = document.getElementById('fileInput');
+
+        uploadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const files = fileInput.files;
+            if (files.length === 0) {
+                alert('Please select at least one file to upload');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', files[0]); // you can loop if multiple files
+
+            try {
+                const res = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData,
+                    credentials: 'include' // if using auth cookies
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    alert(data.message || 'Upload failed');
+                } else {
+                    alert('File uploaded successfully!');
+                    uploadModal.classList.add('hidden'); // close modal
+                    location.reload(); // refresh file list to show new file
+                }
+
+            } catch (err) {
+                console.error(err);
+                alert('Upload failed');
+            }
+        });
+
+    </script>
+</body>
+
+
+</html>
