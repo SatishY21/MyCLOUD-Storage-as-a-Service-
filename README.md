@@ -90,6 +90,4 @@ Here are some features planned for the future:
 
 This project is licensed under the **MIT License**. See the `LICENSE` file for more details.
 
-\<div align="center"\>
-\<p\>Made with ❤️ by [Your Name]\</p\>
-\</div\>
+
